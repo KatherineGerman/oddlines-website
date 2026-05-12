@@ -1,17 +1,81 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/header.astro';
+import StatCard from '../components/header.astro';
+// Future imports will go here, like:
+// import Header from '../components/Header.astro';
+// import StatsGrid from '../components/StatsGrid.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="OddLines | Apuestas Deportivas">
+	
+	<Header />
+
+
+	<!-- 3. Main Content Section -->
+	<section class="container">
+		<h2 class="title">Partidos Destacados</h2>
+		<div class="placeholder-box" style="height: 200px;">Match Cards Scroller</div>
+	</section>
+
+</Layout>
+
+<style>
+	.container {
+		padding: 16px;
+		width: 100%;
+	}
+
+	.section-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 16px;
+		background: var(--bg-card);
+		backdrop-filter: blur(10px);
+		border-bottom: 1px solid var(--border);
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-weight: 900;
+	}
+
+	.logo-icon {
+		width: 30px;
+		height: 30px;
+		background: var(--primary-grad);
+		border-radius: 50%;
+	}
+
+	.btn-reg {
+		background: var(--primary-grad);
+		border: none;
+		color: white;
+		padding: 8px 16px;
+		border-radius: 20px;
+		font-weight: 700;
+		font-size: 12px;
+	}
+
+	.title {
+		font-size: 18px;
+		font-weight: 900;
+		border-left: 4px solid var(--accent-green);
+		padding-left: 10px;
+		margin-bottom: 16px;
+	}
+
+	.placeholder-box {
+		width: 100%;
+		background: var(--bg-card);
+		border: 1px solid var(--border);
+		border-radius: 16px;
+		display: grid;
+		place-items: center;
+		color: var(--text-dim);
+		min-height: 80px;
+	}
+</style>
