@@ -1,22 +1,96 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/header.astro';
-import StatCard from '../components/header.astro';
-// Future imports will go here, like:
-// import Header from '../components/Header.astro';
-// import StatsGrid from '../components/StatsGrid.astro';
+import StatCard from '../components/statsCards.astro';
+import LiveCard from '../components/livecard.astro';
+// Importamos el nuevo componente
+import MatchCard from '../components/matchcard.astro';
+
+// Datos para la sección destacados
+const matches = [
+  {
+    league: "La Liga",
+    team1: "Real Madrid",
+    team2: "Barcelona",
+    time: "18:00",
+    odds: { home: "2.10", draw: "3.20", away: "4.50" },
+    isPopular: true
+  },
+  {
+    league: "Premier League",
+    team1: "Liverpool",
+    team2: "Man City",
+    time: "20:00",
+    odds: { home: "1.85", draw: "3.40", away: "5.20" }
+  }
+];
 ---
 
 <Layout title="OddLines | Apuestas Deportivas">
 	
 	<Header />
 
+  <main class="main-content">
+    <!-- Tus estadísticas intactas -->
+    <div class="stats-container">
+      <StatCard icon="⚽" value="127" label="Partidos Hoy" />
+      <StatCard icon="🔴" value="24" label="En Vivo" />
+      <StatCard icon="📈" value="89" label="Cuotas Altas" />
+    </div>
 
-	<!-- 3. Main Content Section -->
-	<section class="container">
-		<h2 class="title">Partidos Destacados</h2>
-		<div class="placeholder-box" style="height: 200px;">Match Cards Scroller</div>
-	</section>
+     <!-- Nueva Sección: Partidos Destacados (Integrada) -->
+    <section class="featured-section">
+      <div class="section-header">
+        <div class="title-group">
+          <div class="title-accent-bar featured-bar"></div>
+          <h2 class="section-title">Destacados</h2>
+        </div>
+        <a href="#" class="view-all-link">Ver Todos</a>
+      </div>
+
+      <div class="matches-scroll-container">
+        {matches.map((match) => (
+          <MatchCard {...match} />
+        ))}
+      </div>
+    </section>
+    
+    <!-- Nueva Sección: En Vivo -->
+    <section class="live-section">
+      <div class="section-header">
+        <div class="title-group">
+          <div class="live-indicator-dot"></div>
+          <div class="title-accent-bar"></div>
+          <h2 class="section-title">En Vivo</h2>
+        </div>
+        <a href="#" class="view-all-link">
+          Ver Todos 
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 4L10 8L6 12" stroke="#00D492" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </div>
+
+      <div class="live-list">
+        <LiveCard 
+          time="67'" 
+          team1="Atlético Madrid" 
+          score1="2" 
+          team2="Valencia CF" 
+          score2="1" 
+        />
+        <LiveCard 
+          time="89'" 
+          team1="Arsenal" 
+          score1="3" 
+          team2="Chelsea" 
+          score2="2" 
+        />
+      </div>
+    </section>
+
+   
+  </main>
 
 </Layout>
 
@@ -26,56 +100,93 @@ import StatCard from '../components/header.astro';
 		width: 100%;
 	}
 
-	.section-header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		padding: 16px;
-		background: var(--bg-card);
-		backdrop-filter: blur(10px);
-		border-bottom: 1px solid var(--border);
-	}
+  .stats-container{
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 16px;
+  }
 
-	.logo {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		font-weight: 900;
-	}
+  /* Estilos para la sección En Vivo */
+  .live-section {
+    padding: 24px 16px;
+    background: linear-gradient(180deg, rgba(251, 44, 54, 0.05) 0%, rgba(0, 0, 0, 0) 100%);
+  }
 
-	.logo-icon {
-		width: 30px;
-		height: 30px;
-		background: var(--primary-grad);
-		border-radius: 50%;
-	}
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 4px;
+  }
 
-	.btn-reg {
-		background: var(--primary-grad);
-		border: none;
-		color: white;
-		padding: 8px 16px;
-		border-radius: 20px;
-		font-weight: 700;
-		font-size: 12px;
-	}
+  .title-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+  }
 
-	.title {
-		font-size: 18px;
-		font-weight: 900;
-		border-left: 4px solid var(--accent-green);
-		padding-left: 10px;
-		margin-bottom: 16px;
-	}
+  .live-indicator-dot {
+    width: 12px;
+    height: 12px;
+    background: #FB2C36;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px rgba(251, 44, 54, 0.5);
+  }
 
-	.placeholder-box {
-		width: 100%;
-		background: var(--bg-card);
-		border: 1px solid var(--border);
-		border-radius: 16px;
-		display: grid;
-		place-items: center;
-		color: var(--text-dim);
-		min-height: 80px;
-	}
+  .title-accent-bar {
+    width: 4px;
+    height: 24px;
+    background: linear-gradient(180deg, #FB2C36 0%, #E7000B 100%);
+    border-radius: 20px;
+  }
+
+  /* Ajuste de color para la barra de destacados */
+  .featured-bar {
+    background: linear-gradient(180deg, #00D492 0%, #009966 100%);
+  }
+
+  .section-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .view-all-link {
+    color: #00D492;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .live-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Estilos para el scroll horizontal de destacados */
+  .featured-section {
+    padding: 16px 0;
+  }
+
+  .matches-scroll-container {
+    display: flex;
+    gap: 16px;
+    padding: 0 16px 20px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .matches-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
 </style>

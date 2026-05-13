@@ -1,0 +1,160 @@
+---
+// MatchCard.astro
+interface Props {
+  league: string;
+  team1: string;
+  team2: string;
+  time: string;
+  odds: {
+    home: string;
+    draw: string;
+    away: string;
+  };
+  isPopular?: boolean;
+}
+
+const { league, team1, team2, time, odds, isPopular } = Astro.props;
+---
+
+<div class="match-card">
+  {isPopular && (
+    <div class="badge-popular">
+      <span class="icon-fire"></span>
+      <span class="badge-text">Popular</span>
+    </div>
+  )}
+
+  <div class="match-info">
+    <div class="league-name">{league}</div>
+    
+    <div class="teams">
+      <div class="team">
+        <div class="team-logo-placeholder"></div>
+        <span>{team1}</span>
+      </div>
+      <div class="team">
+        <div class="team-logo-placeholder"></div>
+        <span>{team2}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="time-badge">
+    <span class="icon-clock"></span>
+    <span>{time}</span>
+  </div>
+
+  <div class="odds-container">
+    <div class="odd-box">
+      <span class="odd-label">1</span>
+      <span class="odd-value">{odds.home}</span>
+    </div>
+    <div class="odd-box">
+      <span class="odd-label">X</span>
+      <span class="odd-value">{odds.draw}</span>
+    </div>
+    <div class="odd-box">
+      <span class="odd-label">2</span>
+      <span class="odd-value">{odds.away}</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .match-card {
+    width: 320px;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(21, 27, 45, 0.8) 0%, rgba(15, 20, 25, 0.8) 100%);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+  }
+
+  .badge-popular {
+    align-self: flex-start;
+    padding: 4px 12px;
+    background: rgba(254, 154, 0, 0.2);
+    border-radius: 100px;
+    border: 1px solid rgba(254, 154, 0, 0.3);
+    color: #FFB900;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .league-name {
+    text-align: center;
+    color: #00D492;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 16px;
+  }
+
+  .teams {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .team {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  .team-logo-placeholder {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+  }
+
+  .time-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 14px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .odds-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .odd-box {
+    padding: 12px 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .odd-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .odd-value {
+    color: white;
+    font-size: 16px;
+    font-weight: 900;
+  }
+</style>
